@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://ynhttjahowx1"]
+
+[ext_resource type="Texture2D" uid="uid://b3wo0w0aww0c1" path="res://assets/tile.png" id="1_7yhko"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7yhko"]
+texture = ExtResource("1_7yhko")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -2, -8, -2)
+6:0/0/physics_layer_1/polygon_0/one_way = true
+
+[sub_resource type="TileSet" id="TileSet_1n30v"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 4
+physics_layer_1/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_7yhko")
+
+[node name="TileMap" type="TileMap"]
+tile_set = SubResource("TileSet_1n30v")
+format = 2
+layer_0/tile_data = PackedInt32Array(131076, 327680, 0, 131077, 327680, 0, 131078, 327680, 0, 196613, 327680, 0, 196612, 327680, 0, 131079, 393217, 0)

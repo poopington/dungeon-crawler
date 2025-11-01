@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://cpd3rc8k4y4bj"]
+
+[ext_resource type="Script" uid="uid://dchc7rrh12o3f" path="res://scripts/states/state_machine.gd" id="1_1ac31"]
+[ext_resource type="Script" uid="uid://cixbd52k6dsi8" path="res://bat_enemy.gd" id="1_e3kk6"]
+[ext_resource type="Texture2D" uid="uid://dvpp2ek6n253t" path="res://assets/enemy_bat.png" id="1_f0rt2"]
+[ext_resource type="Script" uid="uid://c3a8fl5wp8i3u" path="res://scripts/states/enemy_float_idle.gd" id="2_f0rt2"]
+[ext_resource type="Script" uid="uid://b56mgilck84rf" path="res://scripts/states/enemy_float_chase.gd" id="5_gpfa1"]
+[ext_resource type="Script" uid="uid://cgms2by4axera" path="res://scripts/states/enemy_float_investigate.gd" id="6_j6ate"]
+[ext_resource type="Script" uid="uid://go5mtkwfpas8" path="res://components/hitbox_component.gd" id="7_6s65g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3kk6"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpfa1"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6ate"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s65g"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot0hm"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rh4ra"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2kyf"]
+atlas = ExtResource("1_f0rt2")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gpfa1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3kk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpfa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6ate")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s65g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ot0hm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rh4ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2kyf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6ate"]
+size = Vector2(12, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s65g"]
+size = Vector2(20, 28)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 11
+motion_mode = 1
+platform_floor_layers = 4294967293
+script = ExtResource("1_e3kk6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_gpfa1")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_j6ate")
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_1ac31")
+initial_state = NodePath("enemy_float_idle")
+metadata/_custom_type_script = "uid://tt1cav65cnoh"
+
+[node name="enemy_float_idle" type="Node" parent="state_machine"]
+script = ExtResource("2_f0rt2")
+metadata/_custom_type_script = "uid://c3a8fl5wp8i3u"
+
+[node name="enemy_float_chase" type="Node" parent="state_machine"]
+script = ExtResource("5_gpfa1")
+metadata/_custom_type_script = "uid://b56mgilck84rf"
+
+[node name="enemy_float_investigate" type="Node" parent="state_machine"]
+script = ExtResource("6_j6ate")
+metadata/_custom_type_script = "uid://cgms2by4axera"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -16)
+exclude_parent = false
+target_position = Vector2(0, 200)
+collision_mask = 3
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("7_6s65g")
+damage = 1.0
+metadata/_custom_type_script = "uid://go5mtkwfpas8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_6s65g")
